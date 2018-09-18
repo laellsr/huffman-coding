@@ -1,0 +1,7 @@
+to compile the huffman on linux:
+
+gcc -o huffman.out main.c ./@functions/default.c ./@functions/compress.c ./@data_structures/binary_tree.c ./@data_structures/hash_table.c ./@data_structures/heap.c ./@functions/decompress.c
+
+to compile the huffman on Windows:
+
+gcc -o huffman.exe main.c ./@functions/default.c ./@functions/compress.c ./@data_structures/binary_tree.c ./@data_structures/hash_table.c ./@data_structures/heap.c ./@functions/decompress.c
