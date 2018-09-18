@@ -1,5 +1,6 @@
 #include "binary_tree.h"
 
+
 /* estrutura da árvore binária */
 struct binary_tree
 {
@@ -26,7 +27,7 @@ binary_tree* create_binary_tree(void *value, int frequency, binary_tree *left, b
     new_binary_tree->frequency = frequency;
     new_binary_tree->left = left;
     new_binary_tree->right = right;
-    return new_binary_tree;    
+    return new_binary_tree;
 }
 
 /* limpar a árvore */
@@ -36,9 +37,11 @@ void destruct_binary_tree(binary_tree *bt)
     {
         return;
     }
-    
+
     destruct_binary_tree(bt->left);
     destruct_binary_tree(bt->right);
 
     free(bt);
 }
+
+/* frequência do nó da árvore */

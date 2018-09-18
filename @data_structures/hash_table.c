@@ -29,9 +29,9 @@ hash_table* create_hash_table()
 void put_hash(hash_table *ht, void *value)
 {
 	int h = *(unsigned char*)value;
-	
+
 	element_hash *temp = ht->table[h];
-	
+
 	if (temp==NULL)
 	{
 		element_hash *new_element = (element_hash*) malloc (sizeof(element_hash));
@@ -65,11 +65,8 @@ element_hash* get_hash_data(hash_table *ht, int i)
 	return ht->table[i];
 }
 
-/* Retorna a frequência da posição da Hash */
-int get_hash_frequency(hash_table *ht, int i)
+/* Retorna a frequência do elemento */
+int get_element_hash_frequency(element_hash *eh)
 {
-	//return ht->table[i]->frequency;
+  return eh->element_frequency;
 }
-
-
-

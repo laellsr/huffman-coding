@@ -2,7 +2,7 @@
 #define HEAP_H
 
 #include "../@functions/default.h"
-#include "../@data_structures/binary_tree.h"
+#include "binary_tree.h"
 
 #define MAX_HEAP_SIZE 257
 
