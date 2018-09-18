@@ -5,15 +5,15 @@
 
 int main()
 {
-	int entry; 
-	
+	int entry;
+
 	printf("\n########################################\n");
 	printf("\n                HUFFMAN                 \n");
 	printf("\n########################################\n");
 	printf("\n(1) to COMPRESS OR (2) to DECOMPRESS\n\nEntry:	");
-	
+
 	scanf("%d", &entry);
-	
+
 	switch (entry)
 	{
 		case 1:
@@ -27,7 +27,6 @@ int main()
 		default:
 			printf("\nInvalid entry.\n\n##########  END OF EXECUTION  ###########\n");
 		return 0;
-	
+
 	}
 }
-

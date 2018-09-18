@@ -29,11 +29,10 @@ void enqueue(heap* hp, binary_tree* new_bt)
 		binary_tree* aux;
 
 		hp->data[++hp->size] = new_bt;
-
 		current = hp->size;
 		parent_index = get_parent_index(current);
 
-		while(parent_index >= 1 && get_binary_tree_frequency(hp->data[current]) < get_binary_tree_frequency(hp->data[parent_index]))
+		while((hp->size>1)&&parent_index >= 1 && get_binary_tree_frequency(hp->data[current]) < get_binary_tree_frequency(hp->data[parent_index]))
 		{
 			/* Troca de nós */
 			aux = hp->data[current];
@@ -90,7 +89,6 @@ void min_heapify(heap *heap, int index)
 /* Retorna o nó da árvore de menor frequência */
 binary_tree* dequeue(heap *heap)
 {
-
 	if (heap->size)
 	{
 		heap->size--;
@@ -102,6 +100,7 @@ binary_tree* dequeue(heap *heap)
 	}
 	else
 	{
+		printf("NULL\n");
 		return NULL;
 	}
 }
