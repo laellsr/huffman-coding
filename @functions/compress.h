@@ -8,7 +8,7 @@
 
 
 void byte_frequency(FILE* file, hash_table* ht);
-void huffman_tree(heap *heap);
+binary_tree* huffman_tree(heap *heap);
 void compress();
 
 

@@ -45,3 +45,7 @@ void destruct_binary_tree(binary_tree *bt)
 }
 
 /* frequência do nó da árvore */
+int get_binary_tree_frequency(binary_tree *bt)
+{
+  return bt->frequency;
+}

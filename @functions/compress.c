@@ -17,7 +17,7 @@ void byte_frequency(FILE* file, hash_table* ht)
 }
 
 /* Cria a árvore de Huffman */
-void huffman_tree(heap *heap)
+binary_tree* huffman_tree(heap *heap)
 {
 
 }
@@ -45,11 +45,11 @@ void compress()
 			eh_aux = get_hash_data(ht, i);
 			if (!is_empty(eh_aux))
 			{
-				enqueue(hp, get_element_hash_frequency(eh_aux));
+				enqueue(hp, get_element_hash_frequency(eh_aux), &i);
 			}
 		}
 
-		huffman_tree(hp);
+		binary_tree *tree = huffman_tree(hp);
 
 	}
 
