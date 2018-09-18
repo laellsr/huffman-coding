@@ -30,6 +30,13 @@ binary_tree* huffman_tree(heap *heap)
 		new_bt = create_binary_tree(&character, sum, temp, temp2);
 		enqueue(heap, new_bt);
 	}
+	return dequeue(heap);
+}
+
+/* Faz o mapeamento de bits */
+void make_new_map(binary_tree* bt, hash_table *ht)
+{
+
 }
 
 /* Função para compressão do arquivo */
@@ -60,6 +67,8 @@ void compress()
 		}
 
 		binary_tree *tree = huffman_tree(hp);
+
+
 
 	}
 

@@ -10,6 +10,7 @@
 void byte_frequency(FILE* file, hash_table* ht);
 binary_tree* huffman_tree(heap *heap);
 void compress();
+void make_new_map(binary_tree* bt, hash_table *ht);
 
 
 #endif
