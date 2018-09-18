@@ -49,3 +49,31 @@ int get_binary_tree_frequency(binary_tree *bt)
 {
   return bt->frequency;
 }
+
+/* Verifica se é uma folha */
+int is_leaf(binary_tree *bt)
+{
+  if (is_empty(bt->left) && is_empty(bt->right))
+  {
+    return 1;
+  }
+  else return 0;
+}
+
+/* Retorna o valor do nó */
+unsigned char get_binary_tree_value(binary_tree *bt)
+{
+  return *(unsigned char*) bt->value;
+}
+
+/* Retorna nó direito */
+binary_tree* bt_right(binary_tree *bt)
+{
+  return bt->right;
+}
+
+/* Retorna nó esquerdo */
+binary_tree* bt_left(binary_tree *bt)
+{
+  return bt->left;
+}

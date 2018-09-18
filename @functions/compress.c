@@ -33,9 +33,29 @@ binary_tree* huffman_tree(heap *heap)
 	return dequeue(heap);
 }
 
-/* Faz o mapeamento de bits */
-void make_new_map(binary_tree* bt, hash_table *ht)
+/* Faz o mapeamento do novo caminho */
+void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 {
+	/*if (is_empty(bt))
+	{
+		return;
+	}
+	else*/ if (is_leaf(bt))
+	{
+		temp[i] = '\0';
+		add_hash_map(get_hash_data(ht, i), temp);
+		return;
+	}
+	if (!is_empty(bt_left(bt)))
+	{
+		temp[i] = '0';
+		make_new_map(bt_left(bt), ht, temp, i+1);
+	}
+	if (!is_empty(bt_right(bt)))
+	{
+		temp[i] = '1';
+		make_new_map(bt_right(bt), ht, temp, i+1);
+	}
 
 }
 
@@ -68,7 +88,8 @@ void compress()
 
 		binary_tree *tree = huffman_tree(hp);
 
-
+		char temp[20];
+		make_new_map(tree, ht, temp, 0);
 
 	}
 

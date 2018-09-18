@@ -70,3 +70,9 @@ int get_element_hash_frequency(element_hash *eh)
 {
   return eh->element_frequency;
 }
+
+/* Adiciona o mapa na Hash */
+void add_hash_map(element_hash *eh, char *temp)
+{
+	strcpy(eh->string, temp);
+}
