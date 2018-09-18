@@ -20,7 +20,7 @@ heap* create_heap()
 	return new_hp;
 }
 
-/* Adiciona a Heap de acordo com a Hash */
+/* Adiciona um nó da árvore à Heap */
 void enqueue(heap* hp, int frequency, void* value)
 {
 	if (hp->size < MAX_HEAP_SIZE)
@@ -62,8 +62,8 @@ void min_heapify(heap *heap, int index)
 	int largest;
 	int left = get_left_index(index);
 	int right = get_right_index(index);
-	/*
-	if (left <= heap->size && heap->data[left]->frequency < heap->data[index]->frequency)
+
+	if (left <= heap->size && get_binary_tree_frequency(heap->data[left]) < get_binary_tree_frequency(heap->data[index]))
 	{
 		largest = left;
 	}
@@ -71,26 +71,26 @@ void min_heapify(heap *heap, int index)
 	{
 		largest = index;
 	}
-	if (right <= heap->size && heap->data[right]->frequency < heap->data[largest]->frequency)
+	if (right <= heap->size && get_binary_tree_frequency(heap->data[right]) < get_binary_tree_frequency(heap->data[largest]))
 	{
 		largest = right;
 	}
-	if (heap->data[index]->frequency != heap->data[largest]->frequency)
+	if (get_binary_tree_frequency(heap->data[index]) != get_binary_tree_frequency(heap->data[largest]))
 	{
 		binary_tree* aux;
 		/* Troca de nós */
-	/*	aux = heap->data[index];
+		aux = heap->data[index];
 		heap->data[index] = heap->data[largest];
 		heap->data[largest] = aux;
 
 		min_heapify(heap, largest);
-	} */
+	}
 }
 
-/* Retorna o nó da árvore de menor valor*/
+/* Retorna o nó da árvore de menor frequência */
 binary_tree* dequeue(heap *heap)
 {
-	/*
+
 	if (heap->size)
 	{
 		heap->size--;
@@ -103,5 +103,5 @@ binary_tree* dequeue(heap *heap)
 	else
 	{
 		return NULL;
-	} */
+	}
 }
