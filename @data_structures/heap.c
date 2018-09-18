@@ -21,14 +21,14 @@ heap* create_heap()
 }
 
 /* Adiciona um nó da árvore à Heap */
-void enqueue(heap* hp, int frequency, void* value)
+void enqueue(heap* hp, binary_tree* new_bt)
 {
 	if (hp->size < MAX_HEAP_SIZE)
 	{
 		int parent_index, current;
 		binary_tree* aux;
 
-		hp->data[++hp->size] = create_binary_tree(value, frequency, NULL, NULL);
+		hp->data[++hp->size] = new_bt;
 
 		current = hp->size;
 		parent_index = get_parent_index(current);
@@ -104,4 +104,10 @@ binary_tree* dequeue(heap *heap)
 	{
 		return NULL;
 	}
+}
+
+/* Retona o tamanho da Heap */
+int get_heap_size(heap* heap)
+{
+	return heap->size;
 }

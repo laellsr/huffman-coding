@@ -9,12 +9,12 @@
 typedef struct heap heap;
 
 heap* create_heap();
-void enqueue(heap* hp, int frequency, void* value);
+void enqueue(heap* hp, binary_tree* new_bt);
 binary_tree* dequeue(heap *heap);
 int get_parent_index(int i);
 int get_left_index(int i);
 int get_right_index(int i);
 void min_heapify(heap *heap, int index);
-
+int get_heap_size(heap* heap);
 
 #endif
