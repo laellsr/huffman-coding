@@ -24,16 +24,11 @@ binary_tree* huffman_tree(heap *heap)
 	int sum;
 	while (get_heap_size(heap)>1)
 	{
-		printf("%d size\n", get_heap_size(heap));
 		temp = dequeue(heap);
 		temp2 = dequeue(heap);
-		
-			printf("vacilo\n");
-
 		sum = get_binary_tree_frequency(temp) + get_binary_tree_frequency(temp2); //printf("%d - sum -", sum);
 		new_bt = create_binary_tree(&character, sum, temp, temp2);
 		enqueue(heap, new_bt);
-		printf("foi aq\n");
 	}
 	return dequeue(heap);
 }
@@ -94,7 +89,7 @@ void compress()
 		binary_tree *tree = huffman_tree(hp);
 
 		char temp[20];
-		//make_new_map(tree, ht, temp, 0);
+		make_new_map(tree, ht, temp, 0);
 
 	}
 
