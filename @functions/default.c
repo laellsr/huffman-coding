@@ -1,5 +1,10 @@
 #include "default.h"
 
+unsigned char set_bit(unsigned char c, int i)
+{
+	unsigned char mask = 1 << i;
+	return mask | c;
+}
 /*
  * Recebe um byte e a posição a ser verificada
  * Verifica se o bit na posição i é 1
