@@ -26,7 +26,7 @@ binary_tree* huffman_tree(heap *heap)
 	{
 		temp = dequeue(heap);
 		temp2 = dequeue(heap);
-		sum = get_binary_tree_frequency(temp) + get_binary_tree_frequency(temp2); //printf("%d - sum -", sum);
+		sum = get_binary_tree_frequency(temp) + get_binary_tree_frequency(temp2);
 		new_bt = create_binary_tree(&character, sum, temp, temp2);
 		enqueue(heap, new_bt);
 	}
@@ -43,7 +43,8 @@ void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 	else*/ if (is_leaf(bt))
 	{
 		temp[i] = '\0';
-		add_hash_map(get_hash_data(ht, i), temp);
+		int value = get_binary_tree_value(bt);
+		add_hash_map(get_hash_data(ht, value), temp);
 		return;
 	}
 	if (!is_empty(bt_left(bt)))
@@ -88,7 +89,7 @@ void compress()
 
 		binary_tree *tree = huffman_tree(hp);
 
-		char temp[20];
+		char temp[13];
 		make_new_map(tree, ht, temp, 0);
 
 	}

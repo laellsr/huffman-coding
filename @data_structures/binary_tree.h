@@ -16,5 +16,6 @@ int is_leaf(binary_tree *bt);
 unsigned char get_binary_tree_value(binary_tree *bt);
 binary_tree* bt_right(binary_tree *bt);
 binary_tree* bt_left(binary_tree *bt);
+void print_pre_order_tree(binary_tree *bt);
 
 #endif

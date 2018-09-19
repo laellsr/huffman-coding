@@ -77,3 +77,15 @@ binary_tree* bt_left(binary_tree *bt)
 {
   return bt->left;
 }
+
+/* Imprime a árvore em pré-ordem */
+void print_pre_order_tree(binary_tree *bt)
+{
+  if (bt!=NULL)
+  {
+    printf("%c | ", *(unsigned char*)bt->value);
+    print_pre_order_tree(bt->left);
+    print_pre_order_tree(bt->right);
+  }
+
+}
