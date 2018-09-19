@@ -3,15 +3,11 @@
 /* Lê o arquivo e faz a frequência utilizando a Hash */
 void byte_frequency(FILE* file, hash_table* ht)
 {
-	unsigned char c; int i, size = 0;
-
-	fseek(file, 0, SEEK_END);
-	size = ftell(file);
-  rewind(file);
-
-	for(i = 0; i < size; i++)
+	unsigned char c; 
+  	rewind(file);
+	
+	while(fscanf(file, "%c", &c)!=EOF)
 	{
-		c = fgetc(file);
 		put_hash(ht, &c);
 	}
 }
@@ -78,9 +74,17 @@ void write_huffman_tree(FILE *new_file, binary_tree *bt)
 void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 {
 	FILE *new_file = fopen("compressed.huff", "wb");
-	unsigned char byte = 0;
+	unsigned char byte = 0, character;
+	
 	fprintf(new_file, "%c%c", byte, byte);
+	
 	write_huffman_tree(new_file, bt);
+	
+	rewind(file);
+	while (fscanf(file, "%c", &character)!=EOF)
+	{
+		
+	}
 }
 
 /* Função para compressão do arquivo */
@@ -101,7 +105,7 @@ void compress()
 		byte_frequency(file, ht);
 
 		element_hash *eh_aux;
-		for(i = 1; i < 257; i++)
+		for(i = 0; i < 257; i++)
 		{
 			eh_aux = get_hash_data(ht, i);
 			if (!is_empty(eh_aux))
@@ -115,7 +119,7 @@ void compress()
 		char temp[13];
 		make_new_map(tree, ht, temp, 0);
 		
-		write_new_file(file, tree, ht);
+		//write_new_file(file, tree, ht);
 
 	}
 
