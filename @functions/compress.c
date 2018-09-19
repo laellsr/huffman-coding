@@ -60,6 +60,36 @@ void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 
 }
 
+/* Escreve a árvore em pré-ordem no novo arquivo */
+void write_huffman_tree(FILE *new_file, binary_tree *bt)
+{	
+	if(!is_empty(bt))
+	{
+		unsigned char value = get_binary_tree_value(bt);
+		
+		if(is_leaf(bt) && (value == '*' || value == '\\'))
+		{
+			fprintf(new_file, "\\%c", value);
+		}
+		else
+		{
+			fprintf(new_file, "%c", value);
+		}	
+	
+		write_huffman_tree(new_file, bt_left(bt));
+		write_huffman_tree(new_file, bt_right(bt));
+	}
+}
+
+/* Cria e escreve o arquivo comprimido */
+void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
+{
+	FILE *new_file = fopen("compressed.huff", "wb");
+	unsigned char byte = 0;
+	fprintf(new_file, "%c%c", byte, byte);
+	write_huffman_tree(new_file, bt);
+}
+
 /* Função para compressão do arquivo */
 void compress()
 {
@@ -91,6 +121,8 @@ void compress()
 
 		char temp[13];
 		make_new_map(tree, ht, temp, 0);
+		
+		write_new_file(file, tree, ht);
 
 	}
 
