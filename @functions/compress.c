@@ -36,28 +36,21 @@ binary_tree* huffman_tree(heap *heap)
 /* Faz o mapeamento do novo caminho */
 void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 {
-	/*if (is_empty(bt))
+	if (!is_empty(bt))
 	{
-		return;
-	}
-	else*/ if (is_leaf(bt))
-	{
-		temp[i] = '\0';
-		int value = get_binary_tree_value(bt);
-		add_hash_map(get_hash_data(ht, value), temp);
-		return;
-	}
-	if (!is_empty(bt_left(bt)))
-	{
+		if (is_leaf(bt))
+		{
+			temp[i] = '\0';
+			int value = get_binary_tree_value(bt);
+			add_hash_map(get_hash_data(ht, value), temp);
+			return;
+		}
 		temp[i] = '0';
 		make_new_map(bt_left(bt), ht, temp, i+1);
-	}
-	if (!is_empty(bt_right(bt)))
-	{
+			
 		temp[i] = '1';
-		make_new_map(bt_right(bt), ht, temp, i+1);
+		make_new_map(bt_right(bt), ht, temp, i+1);	
 	}
-
 }
 
 /* Escreve a árvore em pré-ordem no novo arquivo */
