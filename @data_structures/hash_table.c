@@ -4,12 +4,12 @@
 struct element_hash
 {
 	int element_frequency;
-	char string[MAX_SIZE_STRING];
+	char string[MAX_STRING_SIZE];
 };
 
 struct hash_table
 {
-	element_hash *table[MAX_SIZE_HASH];
+	element_hash *table[MAX_HASH_SIZE];
 };
 
 /* Cria a Hash */
@@ -18,7 +18,7 @@ hash_table* create_hash_table()
 	hash_table *new_hash_table = (hash_table*) malloc (sizeof(hash_table));
 
 	int i;
-	for (i = 0; i < MAX_SIZE_HASH; ++i)
+	for (i = 0; i < MAX_HASH_SIZE; ++i)
 	{
 		new_hash_table->table[i] = NULL;
 	}
@@ -49,7 +49,7 @@ void free_hash_table(hash_table *ht)
 {
 	element_hash *temp;
 	int i;
-	for (i = 0; i < MAX_SIZE_HASH; ++i)
+	for (i = 0; i < MAX_HASH_SIZE; ++i)
 	{
 		temp = ht->table[i];
 		free(temp);
@@ -76,4 +76,14 @@ void add_hash_map(element_hash *eh, char *temp)
 {
 	//printf("%s\n", temp);
 	strcpy(eh->string, temp);
+}
+
+/* Retorna a string dentro da Hash */
+char* get_hash_string(hash_table *ht, int i)
+{
+	printf("entrei\n");
+	element_hash *eh = get_hash_data(ht, i);
+	char out[MAX_STRING_SIZE];
+	strcpy(out, ht->string);
+	return &out;
 }

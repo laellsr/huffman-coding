@@ -81,10 +81,18 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 	write_huffman_tree(new_file, bt);
 	
 	rewind(file);
-	while (fscanf(file, "%c", &character)!=EOF)
+	int index_byte, index_new_byte = 7;
+	char *temp = (char*) malloc (sizeof(char)*MAX_STRING_SIZE);
+	temp = get_hash_string(ht, 42); printf("%s\n", temp);
+	/*while (fscanf(file, "%c", &character)!=EOF)
 	{
-		
-	}
+		get_hash_string(ht, character);
+		if(index_new_byte==0)
+		{
+			index_new_byte = 7;
+		}
+
+	}*/
 }
 
 /* Função para compressão do arquivo */
@@ -119,7 +127,7 @@ void compress()
 		char temp[13];
 		make_new_map(tree, ht, temp, 0);
 		
-		//write_new_file(file, tree, ht);
+		write_new_file(file, tree, ht);
 
 	}
 
