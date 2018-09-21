@@ -21,20 +21,21 @@ priority_queue* create_priority_queue()
 }
 
 /* verifica se a fila está vazia */
-int is_empty(priority_queue *pq)
+int is_queue_empty(priority_queue *pq)
 {
 	return (pq->head == NULL);
 }
 
-/* adiciona um nó na fila */
-void enqueue(priority_queue *pq, void *i, int p)
+/* adiciona um nó na fila e retorna o número de comparações que foram necessárias para inserí-lo */
+int enqueue(priority_queue *pq, void *i, int p)
 {
 	node *new_node = (node*) malloc(sizeof(node));
+	int comparisons = 1;
 	int *aux = (int*)malloc(sizeof(int));
 	*aux = *(int*)i;
 	new_node->item = aux;
 	new_node->priority = p;
-	if((is_empty(pq)) || (p > pq->head->priority)) 
+	if((is_queue_empty(pq)) || (p > pq->head->priority)) 
 	{
 		new_node->next = pq->head;
 		pq->head = new_node;
@@ -44,17 +45,20 @@ void enqueue(priority_queue *pq, void *i, int p)
 		node *current = pq->head;
 		while ((current->next != NULL) && (current->next->priority > p)) 
 		{
+			comparisons++;
 			current = current->next;
 		}
+		comparisons++;
 		new_node->next = current->next;
 		current->next = new_node;
 	}
+	return comparisons;
 }
 
-/* remove o primeiro nó da fila */
+/* remove da fila o nó de maior prioridade */
 node* dequeue(priority_queue *pq)
 {
-	if(is_empty(pq)) 
+	if(is_queue_empty(pq)) 
 	{
 		printf("Priority Queue underflow");
 		return NULL;
@@ -71,7 +75,7 @@ node* dequeue(priority_queue *pq)
 /* retorna o valor do nó de maior prioridade */
 int maximum(priority_queue *pq)
 {
-	if(is_empty(pq)) 
+	if(is_queue_empty(pq)) 
 	{
 		printf("Priority Queue underflow");
 		return -1;
