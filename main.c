@@ -21,7 +21,7 @@ int main()
 		break;
 
 		case 2:
-		//	decompress();
+		/*	decompress(); */
 		break;
 
 		default:

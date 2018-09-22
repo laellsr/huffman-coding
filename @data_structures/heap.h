@@ -17,5 +17,6 @@ int get_right_index(int i);
 void min_heapify(heap *heap, int index);
 int get_heap_size(heap* heap);
 void print_heap(heap* heap);
+void build_minheap(heap *heap);
 
 #endif

@@ -1,6 +1,7 @@
 #include "heap.h"
 
 /* Estrutura da Heap */
+/* A Fila foi construida de acordo com a frequência e o símbolo '*' */
 struct heap
 {
 	int size;
@@ -31,7 +32,11 @@ void enqueue(heap* hp, binary_tree* new_bt)
 		hp->data[++hp->size] = new_bt;
 		current = hp->size;
 		parent_index = get_parent_index(current);
-		while(parent_index >= 1 && get_binary_tree_frequency(hp->data[current]) < get_binary_tree_frequency(hp->data[parent_index]))
+		while(parent_index >= 1 && 
+			(get_binary_tree_frequency(hp->data[current]) < get_binary_tree_frequency(hp->data[parent_index]) ||
+				(get_binary_tree_frequency(hp->data[current]) <= get_binary_tree_frequency(hp->data[parent_index])
+					&&(get_binary_tree_value(hp->data[current])=='*' && get_binary_tree_value(hp->data[parent_index])!='*'))
+				))
 		{
 			/* Troca de nós */
 			aux = hp->data[current];
@@ -61,7 +66,9 @@ void min_heapify(heap *heap, int index)
 	int left = get_left_index(index);
 	int right = get_right_index(index);
 
-	if (left <= heap->size && get_binary_tree_frequency(heap->data[left]) < get_binary_tree_frequency(heap->data[index]))
+	if (left <= heap->size && (get_binary_tree_frequency(heap->data[left]) < get_binary_tree_frequency(heap->data[index]) ||
+	(get_binary_tree_frequency(heap->data[left]) <= get_binary_tree_frequency(heap->data[index])
+		&& get_binary_tree_value(heap->data[left])=='*' && get_binary_tree_value(heap->data[index])!='*' )))
 	{
 		largest = left;
 	}
@@ -69,11 +76,15 @@ void min_heapify(heap *heap, int index)
 	{
 		largest = index;
 	}
-	if (right <= heap->size && get_binary_tree_frequency(heap->data[right]) < get_binary_tree_frequency(heap->data[largest]))
+	if (right <= heap->size && (get_binary_tree_frequency(heap->data[right]) < get_binary_tree_frequency(heap->data[largest]) ||
+		(get_binary_tree_frequency(heap->data[right]) <= get_binary_tree_frequency(heap->data[largest])
+			&& get_binary_tree_value(heap->data[right])=='*' && get_binary_tree_value(heap->data[largest])!='*' )))
 	{
 		largest = right;
 	}
-	if (get_binary_tree_frequency(heap->data[index]) != get_binary_tree_frequency(heap->data[largest]))
+	if (get_binary_tree_frequency(heap->data[index]) != get_binary_tree_frequency(heap->data[largest]) || 
+			((get_binary_tree_frequency(heap->data[index]) == get_binary_tree_frequency(heap->data[largest]))
+				&&  get_binary_tree_value(heap->data[index])!='*' && get_binary_tree_value(heap->data[largest])=='*' ))
 	{
 		binary_tree* aux;
 		/* Troca de nós */
@@ -116,8 +127,17 @@ void print_heap(heap* heap)
 	int i;
 	for (i = 1; i <= heap->size; ++i)
 	{
-		printf("[%c | ", get_binary_tree_value(heap->data[i]));
-		printf("%d]", get_binary_tree_frequency(heap->data[i]));
+		printf("[%c|", get_binary_tree_value(heap->data[i]));
+		printf("%d] ", get_binary_tree_frequency(heap->data[i]));
 	}
 	printf("\n");
+}
+
+void build_minheap(heap *heap)
+{
+	int i;
+	for (i = (heap->size)/2; i >=  1; --i)
+	{
+		min_heapify(heap, i);
+	}
 }
