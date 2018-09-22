@@ -79,11 +79,28 @@ void add_hash_map(element_hash *eh, char *temp)
 }
 
 /* Retorna a string dentro da Hash */
-char* get_hash_string(hash_table *ht, int i)
+char get_hash_char_way(hash_table *ht, int i, int j)
 {
-	printf("entrei\n");
-	element_hash *eh = get_hash_data(ht, i);
-	char out[MAX_STRING_SIZE];
-	strcpy(out, ht->string);
-	return &out;
+	element_hash *eh = ht->table[i];
+	return eh->string[j];
+}
+
+/* Retorna o tamanho do caminho */
+int get_string_size(hash_table *ht, int i)
+{
+	element_hash *eh = ht->table[i];
+	return strlen(eh->string);
+}
+
+/* Imprime a Hash */
+void print_hash_table(hash_table *ht)
+{
+	int i;
+	for (i = 0; i < MAX_HASH_SIZE; ++i)
+	{
+		if (ht->table[i]!=NULL)
+		{
+			printf("%d\n", i);
+		}
+	}
 }

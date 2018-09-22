@@ -15,6 +15,8 @@ void free_hash_table(hash_table *ht);
 element_hash* get_hash_data(hash_table *ht, int i);
 int get_element_hash_frequency(element_hash *eh);
 void add_hash_map(element_hash *eh, char *temp);
-char* get_hash_string(hash_table *ht, int i);
+char get_hash_char_way(hash_table *ht, int i, int j);
+int get_string_size(hash_table *ht, int i);
+void print_hash_table(hash_table *ht);
 
 #endif

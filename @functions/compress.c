@@ -74,6 +74,7 @@ void write_huffman_tree(FILE *new_file, binary_tree *bt)
 void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 {
 	FILE *new_file = fopen("compressed.huff", "wb");
+	
 	unsigned char byte = 0, character;
 	
 	fprintf(new_file, "%c%c", byte, byte);
@@ -82,17 +83,32 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 	
 	rewind(file);
 	int index_byte, index_new_byte = 7;
-	char *temp = (char*) malloc (sizeof(char)*MAX_STRING_SIZE);
-	temp = get_hash_string(ht, 42); printf("%s\n", temp);
-	/*while (fscanf(file, "%c", &character)!=EOF)
+	char index_way;
+	while (fscanf(file, "%c", &character)!=EOF)
 	{
-		get_hash_string(ht, character);
-		if(index_new_byte==0)
-		{
-			index_new_byte = 7;
-		}
+		index_byte = 0;
 
-	}*/
+		while(index_byte<get_string_size(ht, character))
+		{
+			index_way = get_hash_char_way(ht, character, index_byte);
+			printf("%c", index_way);
+			if (index_way == '1')
+			{
+				byte = set_bit(byte, index_new_byte);
+			}
+		
+			index_byte++;
+			index_new_byte--;
+
+			if(index_new_byte==0)
+			{
+				fprintf(new_file, "%c", byte);
+				index_new_byte = 7;
+				byte = 0;
+			}
+		}
+		printf("\n");
+	}
 }
 
 /* Função para compressão do arquivo */
