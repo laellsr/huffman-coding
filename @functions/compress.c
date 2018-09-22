@@ -20,18 +20,11 @@ binary_tree* huffman_tree(heap *heap)
 	int sum;
 	while (get_heap_size(heap)>1)
 	{
-		print_heap(heap);
-	printf("\n");
 		temp = dequeue(heap);
-		print_heap(heap);
 		temp2 = dequeue(heap);
-		print_heap(heap);
 		sum = get_binary_tree_frequency(temp) + get_binary_tree_frequency(temp2);
 		new_bt = create_binary_tree(&character, sum, temp, temp2);
 		enqueue(heap, new_bt);
-	//	build_minheap(heap);
-		print_heap(heap);
-		printf("\n");
 	}
 	return dequeue(heap);
 }
@@ -45,7 +38,6 @@ void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 		{
 			temp[i] = '\0';
 			int value = get_binary_tree_value(bt);
-			printf("%c ", get_binary_tree_value(bt));
 			add_hash_map(get_hash_data(ht, value), temp);
 			return;
 		}
@@ -124,7 +116,6 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 	/* Tamanho do lixo (3 bits) */
 	int trash = (index_new_byte+1) % 8;
 	if (trash<0) trash *= -1;
-	printf("%d trash\n", trash);
 	/* Tamanho da árvore */
 	int tree_size = 0;
 	tree_size = binary_tree_size(bt);
