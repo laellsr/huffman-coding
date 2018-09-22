@@ -17,5 +17,6 @@ unsigned char get_binary_tree_value(binary_tree *bt);
 binary_tree* bt_right(binary_tree *bt);
 binary_tree* bt_left(binary_tree *bt);
 void print_pre_order_tree(binary_tree *bt);
+int binary_tree_size(binary_tree *bt);
 
 #endif

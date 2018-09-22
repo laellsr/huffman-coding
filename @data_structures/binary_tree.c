@@ -87,5 +87,14 @@ void print_pre_order_tree(binary_tree *bt)
     print_pre_order_tree(bt->left);
     print_pre_order_tree(bt->right);
   }
+}
 
+/* Retorna o tamanho da árvore */
+int binary_tree_size(binary_tree *bt)
+{
+  if (is_empty(bt))
+  {
+    return 0;
+  }
+  return 1 + binary_tree_size(bt->left) + binary_tree_size(bt->right);
 }

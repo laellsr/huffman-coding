@@ -74,14 +74,17 @@ void write_huffman_tree(FILE *new_file, binary_tree *bt)
 void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 {
 	FILE *new_file = fopen("compressed.huff", "wb");
-	
+	/* "byte" é a variável usada para adicionar os bits no arquivo */
 	unsigned char byte = 0, character;
-	
+	/* Dois bytes nulos para o cabeçalho */
 	fprintf(new_file, "%c%c", byte, byte);
-	
+	/* Escrever a árvorede de huffman em pré-ordem */
 	write_huffman_tree(new_file, bt);
-	
+	/* Escrever o arquivo comprimido */
 	rewind(file);
+	/* index byte é índice do arquivo lido
+	 * index_new_byte é o índice de bits do novo arquivo
+	 * index_way armazena o bit a ser colocado */
 	int index_byte, index_new_byte = 7;
 	char index_way;
 	while (fscanf(file, "%c", &character)!=EOF)
@@ -91,7 +94,7 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 		while(index_byte<get_string_size(ht, character))
 		{
 			index_way = get_hash_char_way(ht, character, index_byte);
-			printf("%c", index_way);
+
 			if (index_way == '1')
 			{
 				byte = set_bit(byte, index_new_byte);
@@ -100,15 +103,33 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 			index_byte++;
 			index_new_byte--;
 
-			if(index_new_byte==0)
+			if(index_new_byte==-1)
 			{
 				fprintf(new_file, "%c", byte);
 				index_new_byte = 7;
 				byte = 0;
 			}
 		}
-		printf("\n");
 	}
+	fclose(file);
+	/* Edição do cabeçalho após escrever o arquivo comprimido */
+	rewind(new_file);
+	/* Tamanho do lixo (3 bits) */
+	int trash = index_new_byte - 7;
+	if (trash<0) trash *= -1;
+	/* Tamanho da árvore */
+	int tree_size = 0;
+	tree_size = binary_tree_size(bt);
+	/* Primeiro byte recebe o lixo (3 bits) mais os 5 bits do tamanho da árvore */	
+	byte = trash;
+	byte = byte << 5;
+	byte |= tree_size >> 8;
+	/* O segundo byte recebe os 8 bits restantes do tamanho da árvore */
+	unsigned char second_byte = 0;
+	second_byte = tree_size;
+	/* Cabeçalho alterado */
+	fprintf(new_file, "%c%c", byte, second_byte);
+	fclose(new_file);	
 }
 
 /* Função para compressão do arquivo */
@@ -125,9 +146,9 @@ void compress()
 	{
 		heap* hp = create_heap();
 		hash_table* ht = create_hash_table();
-
+		/* Frequência do bytes */
 		byte_frequency(file, ht);
-
+		/* Adicionando à Heap */
 		element_hash *eh_aux;
 		for(i = 0; i < 257; i++)
 		{
@@ -137,14 +158,14 @@ void compress()
 				enqueue(hp, create_binary_tree(&i, get_element_hash_frequency(eh_aux), NULL, NULL));
 			}
 		}
-
+		/* Criando a árvore de Huffman */
 		binary_tree *tree = huffman_tree(hp);
-
+		/* Criando o novo caminho */
 		char temp[13];
 		make_new_map(tree, ht, temp, 0);
-		
+		/* Escrevendo o novo arquivo */
 		write_new_file(file, tree, ht);
-
+		/* Fim da Compressão */
 	}
 
 	else
