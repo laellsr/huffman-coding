@@ -139,9 +139,9 @@ void compress()
 
 	printf("\nEnter a directory or a file name:	");
 	scanf("%s", file_name);
-	file = fopen(file_name , "rb");
+	file = fopen(file_name, "rb");
 
-	if (file != NULL)
+	if (!is_empty(file))
 	{
 		heap* hp = create_heap();
 		hash_table* ht = create_hash_table();
@@ -173,5 +173,4 @@ void compress()
 	}
 
 	printf("\n##########        DONE!       ###########\n");
-	fclose(file);
 }

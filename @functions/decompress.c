@@ -1,20 +1,18 @@
 #include "decompress.h"
-/*
- * Recebe um ponteiro para uma arvore binária e um ponteiro para o arquivo fonte
- * Monta recursivamente a árvore binária a partir da árvore em impressa em pré-ordem
- * Retorna um ponteiro para a árvore binária montada
- */
-/*binary_tree* build_tree(binary_tree *tree,FILE *sFile)
-{
-	unsigned char byte;
 
-	byte =  getc(sFile);
+/* Refaz a árvore de Huffman */
+binary_tree* rebuild_huffman_tree(FILE *file)
+{
+	binary_tree *tree;
+
+	unsigned char byte;
+	byte = getc(sFile);
 
 	if(byte == '*')
 	{
-		tree = create_binary_tree(byte,0,NULL,NULL);//Cria um nó com o byte lido do arquivo fonte
-		tree->left = build_tree(tree->left,sFile);
-		tree->right = build_tree(tree->right,sFile);
+		tree = create_binary_tree(byte,0,NULL,NULL);
+		tree->left = build_tree(tree,file);
+		tree->right = build_tree(tree,file);
 	}
 	else//Se não é asterisco então é folha
 	{
@@ -29,7 +27,7 @@
         }
 	}
 	return tree;
-}*/
+}
 
 /*
  *Recebe um ponteiro para uma árvore binária, o arquivo fonte e o arquivo de destino
@@ -90,10 +88,28 @@
  * Recebe um ponteiro para o arquivo fonte e um ponteiro para o arquivo de destino
  * Descomprime o programa comprimido no arquivo de destino
  */
-/*void decompress(FILE *sFile, FILE *dFile)//source file (arquivo fonte), destination file (arquivo de destino)
+void decompress()//source file (arquivo fonte), destination file (arquivo de destino)
 {
-    binary_tree *tree;
-    fseek(sFile,2,SEEK_SET)//Anda 2 bytes no arquivo fonte a partir do início
-    tree = build_tree(tree,sFile);
-    make_program(tree,sFile,dFile);
-}*/
+	FILE* file;
+	unsigned char file_name[200];
+	printf("\nEnter a directory or a file name:	");
+	
+	scanf("%s", file_name);
+	file = fopen(file_name, "rb");
+
+	if (!is_empty(file))
+	{
+		binary_tree *tree;
+		/* Pula os dois primeiros bytes */
+    	fseek(sFile,2,SEEK_SET);
+    	/* Refaz a árvore de Huffman */
+    	tree = rebuild_huffman_tree(file);
+	}
+	else
+	{
+		printf("\nInvalid file.\n\n##########  END OF EXECUTION  ###########\n");
+	}
+
+	printf("\n##########        DONE!       ###########\n");
+   
+}
