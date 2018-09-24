@@ -38,7 +38,7 @@ binary_tree* rebuild_huffman_tree(FILE *file)
 void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 {
 	FILE *new_file = fopen("decompressed.huff", "wb");
-	int index, int trash_aux=-1;
+	int index, value = 1, trash_aux=-1;
 	unsigned char byte, byte_aux;
 	binary_tree *original_tree = huffman_tree;
 	byte_aux = getc(file);
