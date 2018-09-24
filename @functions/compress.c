@@ -158,7 +158,7 @@ void compress()
 			}
 		}
 		/* Criando a árvore de Huffman */
-		binary_tree *tree = huffman_tree(hp);
+		binary_tree *tree = huffman_tree(hp); print_pre_order_tree(tree);
 		/* Criando o novo caminho */
 		char temp[13];
 		make_new_map(tree, ht, temp, 0);

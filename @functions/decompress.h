@@ -6,6 +6,7 @@
 
 
 binary_tree* build_tree(FILE *file);
+void write_original_file(FILE *file, binary_tree *tree, int trash_size);
 void decompress();
 
 

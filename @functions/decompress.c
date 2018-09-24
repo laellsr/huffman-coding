@@ -6,27 +6,74 @@ binary_tree* rebuild_huffman_tree(FILE *file)
 	binary_tree *tree;
 
 	unsigned char byte;
-	byte = getc(sFile);
-
-	if(byte == '*')
+	byte = getc(file);
+	/* Caso seja a base da árvore */
+	if(byte == '*') 
 	{
-		tree = create_binary_tree(byte,0,NULL,NULL);
-		tree->left = build_tree(tree,file);
-		tree->right = build_tree(tree,file);
+		binary_tree *tree_left, *tree_right;
+		tree_left = rebuild_huffman_tree(file);
+		tree_right = rebuild_huffman_tree(file);
+		tree = create_binary_tree(&byte, 0, tree_left, tree_right);
 	}
-	else//Se não é asterisco então é folha
+	/* Caso seja a folha da árvore */
+	else	
 	{
-		if(byte == '\\')//Se for um caractere de escape
+		/* Caso tenha um byte de escape */
+		if(byte == '\\')
 		{
-			byte = getc(sFile);//Cria um nó com o próximo
-			tree = create_binary_tree(byte,0,NULL,NULL);
+			/* Lê o próximo byte */
+			byte = getc(file);
+			tree = create_binary_tree(&byte, 0, NULL, NULL);
 		}
         else
         {
-            tree = create_binary_tree(byte,0,NULL,NULL);//Se não for um caractere de escape, já coloca um nó no lugar diretamente
+            tree = create_binary_tree(&byte, 0, NULL, NULL);
         }
 	}
 	return tree;
+	
+}
+
+/* Escreve o arquivo original antes da compressão */
+void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
+{
+	FILE *new_file = fopen("decompressed.huff", "wb");
+	int index, int trash_aux=0;
+	unsigned char byte, byte_aux;
+	binary_tree *original_tree = huffman_tree;
+	byte_aux = getc(file);
+	/* Escreve os bytes de acordo com o caminho da árvore */
+	while(value)
+	{
+		/* "byte" recebe o novo byte caso não seja o final do arquivo */
+		byte = byte_aux;
+		/* Índice do byte */
+		index = 7;
+		/* Se for o final do arquivo, será necessário parar o loop e conferir o lixo */
+		if (fscanf(file, "%c", &byte_aux)==EOF)
+		{
+			value--;
+			trash_aux = trash_size - 1;
+		}
+		/* Percorre todo o byte enquanto o "trash_aux" for igual a 0
+		 * Quando ler o último byte, o "trash_aux" vai ser igual ao lixo */
+		while(index > trash_aux)
+		{
+			if (is_bit_i_set(byte, index))
+			{
+				huffman_tree = bt_right(huffman_tree);
+			}
+			else huffman_tree = bt_left(huffman_tree);
+
+			if (is_leaf(huffman_tree))
+			{
+				fprintf(new_file, "%c", get_binary_tree_value(huffman_tree));
+				huffman_tree = original_tree;
+			}
+
+			index--;
+		}
+	}
 }
 
 /*
@@ -82,28 +129,35 @@ binary_tree* rebuild_huffman_tree(FILE *file)
 	fseek(dFile,0,SEEK_SET);
 	fclose(sFile);
 	fclose(dFile);	
-}/*
+}*/
 
-/*
- * Recebe um ponteiro para o arquivo fonte e um ponteiro para o arquivo de destino
- * Descomprime o programa comprimido no arquivo de destino
- */
-void decompress()//source file (arquivo fonte), destination file (arquivo de destino)
+
+void decompress()
 {
 	FILE* file;
 	unsigned char file_name[200];
 	printf("\nEnter a directory or a file name:	");
-	
 	scanf("%s", file_name);
 	file = fopen(file_name, "rb");
 
 	if (!is_empty(file))
 	{
-		binary_tree *tree;
-		/* Pula os dois primeiros bytes */
-    	fseek(sFile,2,SEEK_SET);
-    	/* Refaz a árvore de Huffman */
-    	tree = rebuild_huffman_tree(file);
+		unsigned char byte = getc(file);
+		/* Tamanho do lixo de acordo com o cabeçalho */
+		int trash_size = byte >> 5;
+		/* Tamanho da árvore de acordo com o cabeçalho
+		byte = byte << 3;
+		byte = byte >> 3;
+		int tree_size = byte;
+		tree_size = tree_size << 8;
+		byte = getc(file);
+		tree_size |= byte;*/
+
+		/* Refaz a árvore de Huffman */
+		binary_tree *tree; 
+		tree = rebuild_huffman_tree(file);
+    	write_original_file(file, tree, trash_size);
+    	fclose(file); 
 	}
 	else
 	{
