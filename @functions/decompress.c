@@ -38,7 +38,7 @@ binary_tree* rebuild_huffman_tree(FILE *file)
 void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 {
 	FILE *new_file = fopen("decompressed.huff", "wb");
-	int index, int trash_aux=0;
+	int index, int trash_aux=-1;
 	unsigned char byte, byte_aux;
 	binary_tree *original_tree = huffman_tree;
 	byte_aux = getc(file);
@@ -55,7 +55,7 @@ void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 			value--;
 			trash_aux = trash_size - 1;
 		}
-		/* Percorre todo o byte enquanto o "trash_aux" for igual a 0
+		/* Percorre todo o byte enquanto o "trash_aux" for igual a -1
 		 * Quando ler o último byte, o "trash_aux" vai ser igual ao lixo */
 		while(index > trash_aux)
 		{
