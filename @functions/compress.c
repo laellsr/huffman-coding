@@ -110,12 +110,13 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 			}
 		}
 	}
+	/* Se o lixo não existir (= zero), não é necessário adicionar mais um byte */
+	if (index_new_byte!=7) fprintf(new_file, "%c", byte);
 	fclose(file);
 	/* Edição do cabeçalho após escrever o arquivo comprimido */
 	rewind(new_file);
 	/* Tamanho do lixo (3 bits) */
 	int trash = (index_new_byte+1) % 8;
-	if (trash<0) trash *= -1;
 	/* Tamanho da árvore */
 	int tree_size = 0;
 	tree_size = binary_tree_size(bt);

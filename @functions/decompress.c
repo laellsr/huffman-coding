@@ -46,7 +46,6 @@ void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 	while(value)
 	{
 		/* "byte" recebe o novo byte caso não seja o final do arquivo */
-		
 		byte = byte_aux;
 		/* Índice do byte */
 		index = 7;
@@ -55,12 +54,14 @@ void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 		if (fscanf(file, "%c", &byte_aux)==EOF)
 		{
 			value--;
+			/* Quando não existir lixo (= zero), o último byte é lido por completo, então "trash_aux" = -1 */
 			trash_aux = trash_size - 1;
 		}
 		/* Percorre todo o byte enquanto o "trash_aux" for igual a -1
-		 * Quando ler o último byte, o "trash_aux" vai ser igual ao lixo */
+		 * Quando ler o último byte, o "trash_aux" vai ser igual ao lixo se este existir */
 		while(index > trash_aux)
 		{
+			/* Faz a busca por folhas na árvore */
 			if (is_bit_i_set(byte, index))
 			{
 				huffman_tree = bt_right(huffman_tree);
@@ -70,7 +71,7 @@ void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 			if (is_leaf(huffman_tree))
 			{
 				fprintf(new_file, "%c", get_binary_tree_value(huffman_tree));
-				huffman_tree = original_tree;
+				huffman_tree = original_tree; printf("\n");
 			}
 
 			index--;
