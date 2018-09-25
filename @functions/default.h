@@ -7,7 +7,6 @@
 
 unsigned char set_bit(unsigned char c, int i);
 int is_bit_i_set(unsigned char c, int i);
-int trash_size(FILE *sFile);
 int is_empty(void* structure);
 
 #endif
