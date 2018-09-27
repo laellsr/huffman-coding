@@ -71,7 +71,7 @@ void write_original_file(FILE *file, binary_tree *huffman_tree, int trash_size)
 			if (is_leaf(huffman_tree))
 			{
 				fprintf(new_file, "%c", get_binary_tree_value(huffman_tree));
-				huffman_tree = original_tree; printf("\n");
+				huffman_tree = original_tree; 
 			}
 
 			index--;
