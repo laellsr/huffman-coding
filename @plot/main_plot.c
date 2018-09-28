@@ -4,8 +4,7 @@
 #include "pq_heap.h"
 
 /*
-	nos arquivos criados cada linha é composta pela ordem de inserção e a quantidade de comparações necessárias pra inserir na fila, 
-  a prioridade é sorteada
+	nos arquivos criados cada linha é composta pela ordem de inserção e a quantidade de comparações necessárias pra inserir na fila, a prioridade é sorteada
 */
 
 int main()
@@ -13,16 +12,17 @@ int main()
 	priority_queue *pq = create_priority_queue();
 	heap *pq_h = create_heap();
 	FILE *f_pq = fopen("comparisons_pq.txt", "w"); // cria arquivo para as comparaçãos da fila de prioridade sem heap
-	FILE *f_pqh = fopen("comparisons_pq_heap.txt", "w"); // cria arquivo para as comparaçãos da fila de prioridade com heap
+	FILE *f_pqh = fopen("comparisons_pqh.txt", "w"); // cria arquivo para as comparaçãos da fila de prioridade com heap
 	int n, i, priority;
 	int comparisons, comparisons_h;
 	int *item;
 
-	printf("Enter the number of elements to be added:\n");
+	printf("Enter the number of elements to be added:\t");
 	scanf("%d", &n);
 
 	for(i = 1; i <= n; i++)
 	{
+		item = (int*)malloc(sizeof(int));
 		*item = i;
 		priority = rand();
 		comparisons = enqueue(pq, item, priority);
@@ -33,6 +33,7 @@ int main()
 
 	fclose(f_pq);
 	fclose(f_pqh);
+	printf("\nDone!\n");
 	
 	return 0;
 }
