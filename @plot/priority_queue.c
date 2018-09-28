@@ -31,9 +31,7 @@ int enqueue(priority_queue *pq, void *i, int p)
 {
 	node *new_node = (node*) malloc(sizeof(node));
 	int comparisons = 1;
-	int *aux = (int*)malloc(sizeof(int));
-	*aux = *(int*)i;
-	new_node->item = aux;
+	new_node->item = i;
 	new_node->priority = p;
 	if((is_queue_empty(pq)) || (p > pq->head->priority)) 
 	{
@@ -96,4 +94,3 @@ void print_priority_queue(priority_queue *pq)
 		temp = temp->next;
 	}
 }
-
