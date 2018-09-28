@@ -124,9 +124,7 @@ int enqueue_heap(heap *h, void* item, int priority)
 			h->data[h->size] = (heap_node*)malloc(sizeof(heap_node));
 		}
 
-		int *aux = (int*)malloc(sizeof(int));
-		*aux = *(int*)item;
-		h->data[h->size]->item = aux;
+		h->data[h->size]->item = item;
 		h->data[h->size]->priority = priority;
 
 		int key_index = h->size;
