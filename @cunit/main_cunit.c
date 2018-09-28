@@ -67,12 +67,24 @@ void test_tree()
 }
 void test_heap()
 {
+	unsigned char byte = '*';
 	heap *heap = create_heap();
 	CU_ASSERT_PTR_NULL(heap);
+	binary_tree *bt = create_binary_tree(&byte, 1, NULL, NULL);
+	enqueue(heap, bt);
+	CU_ASSERT_PTR_NOT_NULL(heap);
+	CU_ASSERT(get_heap_size(heap) == 1);
+	
 
 }
 void test_hash_table()
 {
+	unsigned char byte = '*';
 	hash_table *hash = create_hash_table();
 	CU_ASSERT_PTR_NULL(hash);
+	put_hash(hash, &byte);
+	put_hash(hash, &byte);
+	element_hash *eh = get_hash_data(hash);
+	CU_ASSERT_PTR_NOT_NULL(eh);
+	CU_ASSERT(get_element_hash_frequency(eh)==2);
 }
