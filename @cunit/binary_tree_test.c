@@ -1,9 +1,7 @@
-#include "../@data_structures/binary_tree.c"
-#include "../@data_structures/binary_tree.h"
 #include "../@functions/default.h"
-#include "../@functions/default.c"
+#include "../@data_structures/binary_tree.h"
 #include "CUnit/Basic.h"
-
+/*  gcc -Wall -o cunit_tree binary_tree_test.c -lcunit ../@data_structures/binary_tree.c */
 void create_binary_tree_test()
 {
 	binary_tree* new = create_empty_binary_tree();
