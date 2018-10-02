@@ -5,8 +5,12 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-/* gcc -o cunit main_cunit.c -lcunit */
+/* gcc -Wall -o cunit main_cunit.c -lcunit ../@functions/default.c
+../@data_structures/binary_tree.c ../@data_structures/hash_table.c
+../@data_structures/heap.c */
 
+int init_suite();
+int clean_suite();
 void test_tree();
 void test_heap();
 void test_hash_table();
@@ -51,6 +55,16 @@ int main()
     return CU_get_error();
 }
 
+int init_suite()
+{
+    return 0;
+}
+
+int clean_suite()
+{
+    return 0;
+}
+
 void test_tree()
 {
 	unsigned char byte = '*';
@@ -62,29 +76,26 @@ void test_tree()
 	CU_ASSERT(get_binary_tree_frequency(bt) == 1); /*Assert that expression is TRUE*/
 	CU_ASSERT_PTR_NULL(bt_right(bt));
 	CU_ASSERT_TRUE(is_leaf(bt)); /* Assert that value is TRUE */
-
-
+    CU_ASSERT(binary_tree_size(bt)==1);
 }
 void test_heap()
 {
 	unsigned char byte = '*';
 	heap *heap = create_heap();
-	CU_ASSERT_PTR_NULL(heap);
+    CU_ASSERT_PTR_NOT_NULL(heap);
 	binary_tree *bt = create_binary_tree(&byte, 1, NULL, NULL);
 	enqueue(heap, bt);
 	CU_ASSERT_PTR_NOT_NULL(heap);
 	CU_ASSERT(get_heap_size(heap) == 1);
-	
-
 }
 void test_hash_table()
 {
 	unsigned char byte = '*';
 	hash_table *hash = create_hash_table();
-	CU_ASSERT_PTR_NULL(hash);
+    CU_ASSERT_PTR_NOT_NULL(hash);
 	put_hash(hash, &byte);
 	put_hash(hash, &byte);
-	element_hash *eh = get_hash_data(hash);
+	element_hash *eh = get_hash_data(hash, byte);
 	CU_ASSERT_PTR_NOT_NULL(eh);
 	CU_ASSERT(get_element_hash_frequency(eh)==2);
 }
