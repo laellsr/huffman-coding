@@ -4,7 +4,7 @@
 #include "pq_heap.h"
 
 /*
-	gcc main_plot2.c pq_heap.c priority_queue.c
+	gcc main_plot_R.c pq_heap.c priority_queue.c
 
 	nos arquivos criados cada linha é composta pela ordem de inserção
 	e a quantidade de comparações necessárias pra inserir na fila, a prioridade é sorteada

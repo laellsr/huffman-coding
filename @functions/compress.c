@@ -37,7 +37,7 @@ void make_new_map(binary_tree* bt, hash_table *ht, char *temp, int i)
 		if (is_leaf(bt))
 		{
 			temp[i] = '\0';
-			int value = get_binary_tree_value(bt);
+			int value = get_binary_tree_value(bt); /* caracter do nó */
 			add_hash_map(get_hash_data(ht, value), temp);
 			return;
 		}
@@ -85,21 +85,20 @@ void write_new_file(FILE *file, binary_tree *bt, hash_table *ht)
 	/* index byte é índice do arquivo lido
 	 * index_new_byte é o índice de bits do novo arquivo
 	 * index_way armazena o bit a ser colocado */
-	int index_byte, index_new_byte = 7;
-	char index_way;
+	int index_string, index_new_byte = 7;
+
 	while (fscanf(file, "%c", &character)!=EOF)
 	{
-		index_byte = 0;
+		index_string = 0;
 
-		while(index_byte<get_string_size(ht, character))
+		while(index_string<get_string_size(ht, character))
 		{
-			index_way = get_hash_char_way(ht, character, index_byte);
-			if (index_way == '1')
+			if (get_hash_char_way(ht, character, index_string) == '1')
 			{
 				byte = set_bit(byte, index_new_byte);
 			}
 		
-			index_byte++;
+			index_string++;
 			index_new_byte--;
 
 			if(index_new_byte<0)
@@ -161,7 +160,7 @@ void compress()
 		/* Criando a árvore de Huffman */
 		binary_tree *tree = huffman_tree(hp);
 		/* Criando o novo caminho */
-		char temp[13];
+		char temp[MAX_STRING_SIZE];
 		make_new_map(tree, ht, temp, 0);
 		/* Escrevendo o novo arquivo */
 		write_new_file(file, tree, ht);
