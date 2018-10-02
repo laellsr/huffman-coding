@@ -4,7 +4,7 @@
 #include "../@functions/default.h"
 
 #define MAX_HASH_SIZE 257
-#define MAX_STRING_SIZE 13
+#define MAX_STRING_SIZE 16
 
 typedef struct element_hash element_hash;
 typedef struct hash_table hash_table;
