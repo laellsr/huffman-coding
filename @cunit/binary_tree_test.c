@@ -1,7 +1,7 @@
 #include "../@functions/default.h"
 #include "../@data_structures/binary_tree.h"
 #include "CUnit/Basic.h"
-/*  gcc -Wall -o cunit_tree binary_tree_test.c -lcunit ../@data_structures/binary_tree.c */
+/*  gcc -Wall -o cunit_tree binary_tree_test.c -lcunit ../@functions/default.c ../@data_structures/binary_tree.c */
 void create_binary_tree_test()
 {
 	binary_tree* new = create_empty_binary_tree();
@@ -125,10 +125,6 @@ int main() {
 
 	// Adiciona testes a suite
 	if (NULL == CU_add_test(pSuite, "create_binary_tree_test", create_binary_tree_test)) {
-	  CU_cleanup_registry();
-	  return CU_get_error();
-	}
-	if (NULL == CU_add_test(pSuite, "destruct_binary_tree_test", destruct_binary_tree_test)) {
 	  CU_cleanup_registry();
 	  return CU_get_error();
 	}
