@@ -30,20 +30,6 @@ binary_tree* create_binary_tree(void *value, int frequency, binary_tree *left, b
     return new_binary_tree;
 }
 
-/* limpar a árvore */
-void destruct_binary_tree(binary_tree *bt)
-{
-    if (bt==NULL)
-    {
-        return;
-    }
-
-    destruct_binary_tree(bt->left);
-    destruct_binary_tree(bt->right);
-
-    free(bt);
-}
-
 /* frequência do nó da árvore */
 int get_binary_tree_frequency(binary_tree *bt)
 {
