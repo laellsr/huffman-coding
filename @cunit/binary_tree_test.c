@@ -19,40 +19,6 @@ void create_binary_tree_test()
 	}
 }
 
-void destruct_binary_tree_test()
-{
-	binary_tree* new = create_empty_binary_tree();
-	unsigned char c;
-	unsigned char d;
-	c = 'b';
-	d = 'c';
-	new = create_binary_tree(&c,5,create_binary_tree(&d,4,NULL,NULL),NULL);
-
-	c = (unsigned char*)new->left->value;
-
-	if(new->left != NULL)
-	{
-		CU_PASS("Ok!");
-	}
-	else
-	{
-		CU_FAIL("create_binary_tree com erro!");
-	}
-
-	destruct_binary_tree(new->left);
-
-	printf("%d\n", new->left->frequency);
-
-	if(new->left == NULL)
-	{
-		CU_PASS("OK!");
-	}
-	else
-	{
-		CU_FAIL("destruct_binary_tree com erro!");
-	}
-}
-
 void get_binary_tree_frequency_test()
 {
 	binary_tree* new = create_empty_binary_tree();
