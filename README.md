@@ -12,4 +12,4 @@ The algorithm consists of compressing a file by mapping the repetition of bytes.
 
 > *The size of this sequencial txt file is 24 bytes and 14 bytes after compression.*
 
-For this, the algorithm uses **heap** to sort, **hashtable** to calculate repetitions and a **binary tree** for map them.
+For this, the algorithm uses **hashtable** to calculate repetitions, **heap** to sort and a **binary tree** for map them.
